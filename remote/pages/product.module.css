@@ -1,0 +1,14 @@
+.photoListWrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.productPageWrapper {
+  max-width: 1220px;
+  display: flex;
+  justify-content: center;
+}
+.productPagePhotos {
+  display: flex;
+  flex-direction: column;
+}
