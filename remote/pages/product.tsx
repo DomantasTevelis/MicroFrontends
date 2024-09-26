@@ -7,27 +7,33 @@ import styles from "./product.module.css";
 const Nav = dynamic(() => import("host/nav"), { ssr: false });
 const Footer = dynamic(() => import("host/footer"), { ssr: false });
 
-const Product = () => {
+const Product = ({ textContent }: { textContent: string }) => {
   const [photos, setPhotos] = useState<Photo[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch("https://jsonplaceholder.typicode.com/photos?_limit=10")
       .then((res) => {
         return res.json();
       })
       .then((data: Photo[]) => {
-        console.log(data);
         setPhotos(data);
+        setIsLoading(false);
       });
   }, []);
 
   const renderPhotos = photos.map((photo) => {
     return (
       <div className="photo-wrapper" key={photo.id}>
-        <img src={photo.thumbnailUrl} alt={photo.title} />
+        <Link href={`product/${photo.id}`}>
+          <img src={photo.thumbnailUrl} alt={photo.title} />
+        </Link>
       </div>
     );
   });
+
+  const isLoadingWrapper = <div>Loading...</div>;
 
   return (
     <>
@@ -35,8 +41,10 @@ const Product = () => {
       <main className={styles.productPageWrapper}>
         <section className={styles.productPagePhotos}>
           <Link href="/">Go back</Link>
-          <h1>Product in remote:3001</h1>
-          <section className={styles.photoListWrapper}>{renderPhotos}</section>
+          <h1>Product in remote:3001 {textContent}</h1>
+          <section className={styles.photoListWrapper}>
+            {isLoading ? isLoadingWrapper : renderPhotos}
+          </section>
         </section>
       </main>
       <Footer />

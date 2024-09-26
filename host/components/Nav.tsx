@@ -11,7 +11,7 @@ const Nav = () => {
         color: "white",
       }}
     >
-      <h2>Nav from main:3000</h2>
+      <h2>Nav from main:3000 new changes</h2>
     </nav>
   );
 };

@@ -19,6 +19,7 @@ export default {
           './Add': './utils/Add.tsx',
           './MultiplyByTwo': './utils/MultiplyByTwo.tsx',
           './product': './pages/product.tsx',
+          './singleProduct': '/pages/product/[id].tsx'
         },
         shared: {
           // shared modules
